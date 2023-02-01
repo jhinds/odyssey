@@ -42,14 +42,14 @@ int od_prom_set_port(int port, od_prom_metrics_t *self)
 int od_prom_activate_general_metrics(od_prom_metrics_t *self)
 {
 	if (!self)
-		printf("not self");
+		od_log(logger, "config", NULL, NULL, "not self");
 		return NOT_OK_RESPONSE;
 	promhttp_set_active_collector_registry(self->stat_general_metrics);
 	if (!self->http_server && self->port > 0) {
-		printf("switch");
+		od_log(logger, "config", NULL, NULL, "switch");
 		return od_prom_switch_server_on(self);
 	} else if (self->port <= 0) {
-		printf("idk");
+		od_log(logger, "config", NULL, NULL, "idk");
 		return NOT_OK_RESPONSE;
 	}
 	return OK_RESPONSE;
@@ -58,11 +58,14 @@ int od_prom_activate_general_metrics(od_prom_metrics_t *self)
 int od_prom_activate_route_metrics(od_prom_metrics_t *self)
 {
 	if (!self)
+		od_log(logger, "config", NULL, NULL, "not self");
 		return NOT_OK_RESPONSE;
 	promhttp_set_active_collector_registry(NULL);
 	if (!self->http_server && self->port > 0) {
+		od_log(logger, "config", NULL, NULL, "switch");
 		return od_prom_switch_server_on(self);
 	} else if (self->port <= 0) {
+		od_log(logger, "config", NULL, NULL, "idk");
 		return NOT_OK_RESPONSE;
 	}
 	return OK_RESPONSE;
