@@ -46,6 +46,7 @@ int od_prom_activate_general_metrics(od_prom_metrics_t *self)
 		return NOT_OK_RESPONSE;
 	promhttp_set_active_collector_registry(self->stat_general_metrics);
 	if (!self->http_server && self->port > 0) {
+		printf("switch")
 		return od_prom_switch_server_on(self);
 	} else if (self->port <= 0) {
 		printf("idk")
